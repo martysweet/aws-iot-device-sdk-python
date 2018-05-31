@@ -10,6 +10,8 @@ Fork
 This fork is patched with support for certificate authentication over port 443, as suggested on
 `this Github issue <https://github.com/aws/aws-iot-device-sdk-python/issues/131>`__.
 
+All changes can be seen using `Comparing changes <https://github.com/aws/aws-iot-device-sdk-python/compare/master...martysweet:master>`__.
+
 Usage:
    .. code-block:: python
 
