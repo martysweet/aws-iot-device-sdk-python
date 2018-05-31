@@ -11,16 +11,20 @@ This fork is patched with support for certificate authentication over port 443, 
 `this Github issue <https://github.com/aws/aws-iot-device-sdk-python/issues/131>`__.
 
 Usage:
-```python
-# Init AWSIoTMQTTClient
-myAWSIoTMQTTClient = None
-myAWSIoTMQTTClient = AWSIoTMQTTClient(clientId)
-myAWSIoTMQTTClient.configureEndpoint(host, 443)
-myAWSIoTMQTTClient.configureCredentials(rootCAPath, privateKeyPath, certificatePath)
-```
+   .. code-block:: python
+
+      # Init AWSIoTMQTTClient 
+      myAWSIoTMQTTClient = None
+      myAWSIoTMQTTClient = AWSIoTMQTTClient(clientId)
+      myAWSIoTMQTTClient.configureEndpoint(host, 443)   
+      myAWSIoTMQTTClient.configureCredentials(rootCAPath, privateKeyPath, certificatePath)
+   
+
 
 Requirements.txt
-`git+git://github.com/martysweet/aws-iot-device-sdk-python.git`
+   .. code-block:: python
+   
+      git+git://github.com/martysweet/aws-iot-device-sdk-python.git
 
 This fork will remain available **until** the offical repository supports the alpn negotiation.
 
