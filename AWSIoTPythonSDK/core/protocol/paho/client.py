@@ -787,14 +787,25 @@ class Client(object):
                 self._ssl = SecuredWebSocketCore(rawSSL, self._host, self._port, self._AWSAccessKeyIDCustomConfig, self._AWSSecretAccessKeyCustomConfig, self._AWSSessionTokenCustomConfig)  # Overeride the _ssl socket
                 # self._ssl.enableDebug()
             else:
-                self._ssl = ssl.wrap_socket(
-                    sock,
-                    certfile=self._tls_certfile,
-                    keyfile=self._tls_keyfile,
-                    ca_certs=self._tls_ca_certs,
-                    cert_reqs=self._tls_cert_reqs,
-                    ssl_version=self._tls_version,
-                    ciphers=self._tls_ciphers)
+                if self._port == 8883:
+                    self._ssl = ssl.wrap_socket(
+                        sock,
+                        certfile=self._tls_certfile,
+                        keyfile=self._tls_keyfile,
+                        ca_certs=self._tls_ca_certs,
+                        cert_reqs=self._tls_cert_reqs,
+                        ssl_version=self._tls_version,
+                        ciphers=self._tls_ciphers)
+                else:
+                    context = ssl.SSLContext(self._tls_version)
+                    context.load_cert_chain(self._tls_certfile, self._tls_keyfile)
+                    context.verify_mode = self._tls_cert_reqs
+                    context.load_verify_locations(self._tls_ca_certs)
+                    context.set_alpn_protocols(["x-amzn-mqtt-ca"])
+
+                    self._ssl = context.wrap_socket(sock, server_hostname=self._host, do_handshake_on_connect=False)
+
+                    self._ssl.do_handshake()
 
                 if self._tls_insecure is False:
                     if sys.version_info[0] < 3 or (sys.version_info[0] == 3 and sys.version_info[1] < 5):  # No IP host match before 3.5.x

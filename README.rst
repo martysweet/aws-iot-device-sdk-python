@@ -1,6 +1,11 @@
 AWS IoT Device SDK for Python
 =============================
 
+**WARNING**
+This fork is patched with support for certificate authentication over port 443, as suggested on
+`this Github issue <https://github.com/aws/aws-iot-device-sdk-python/issues/131>`__.
+
+
 The AWS IoT Device SDK for Python allows developers to write Python
 script to use their devices to access the AWS IoT platform through `MQTT or
 MQTT over the  WebSocket
